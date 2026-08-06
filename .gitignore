@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# PyInstaller 打包产物
+build/
+dist/
+*.spec
+*.exe
+
+# 个人数据 / 配置（含 API key，勿提交）
+AI配置.json
+使用者.json
+设置.json
+闹钟配置.json
+错误日志.txt
+
+# 临时文件
+_tmp_test.jpg
+
+# IDE
+.idea/
+.vscode/
