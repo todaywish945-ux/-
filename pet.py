@@ -477,7 +477,7 @@ class DesktopPet(QLabel):
         """作者信息：展示作者头像图片 + 一句寄语"""
         box = QMessageBox(self)
         box.setWindowTitle('作者信息')
-        box.setText('每天都要保持嘴角上扬')
+        box.setText('抖音：每天都要保持嘴角上扬啊\n抖音号：4614574078d')
         image_path = ''
         for name in ('作者.png', '作者.jpg', '作者.jpeg'):
             candidate = os.path.join(self._resource_path, name)
