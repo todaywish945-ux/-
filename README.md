@@ -15,25 +15,36 @@ pip install -r requirements.txt
 python pet.py
 ```
 
+依赖：`PyQt6`（界面）+ `pynput`（全局键盘监听，用于"打字时小蕾米连续绘制"）。
+若 `pynput` 安装失败或缺失，程序会静默跳过该功能，不影响其他功能。
+
 ## 操作
 
 | 操作 | 效果 |
 | --- | --- |
 | 左键拖拽 | 移动桌宠位置 |
 | 左键单击 | 随机表情互动（得意/思考/期待），2 秒后恢复 |
-| 左键双击 | 切换下一个表情 |
+| 左键双击 | 在默认状态与选定的「双击动作」之间切换（可自选动作） |
 | 鼠标滚轮 | 缩放大小（0.5x ~ 2x） |
-| 右键菜单 | 和小蕾米聊天 / 画画 / 和小蕾米玩游戏 / 重置位置和大小 / 作者信息 / 退出 |
+| 任意键盘输入 | 全局监听：在任何程序中打字，小蕾米表演「连续绘制」动画 |
+| 右键菜单 | 和小蕾米聊天 / 画画 / 和小蕾米玩游戏 / 开机自启 / 双击动作 / 更换称呼 / 作者信息 / 退出 |
+
+### 右键菜单
+
+- **开机自启**：勾选后 Windows 开机自动启动（写注册表 `HKCU\...\Run`）
+- **双击动作**：自选双击时要播放的 GIF（待机/得意/思考/拿笔待机/期待/连续绘制/间歇绘制）
+- **更换称呼（性别）**：男「我的共犯先生」/ 女「我的共犯小姐」
 
 ## 小游戏
 
-右键桌宠 → **和小蕾米玩游戏**，可玩四个小游戏：
+右键桌宠 → **和小蕾米玩游戏**，可玩五个小游戏：
 
 | 游戏 | 玩法 |
 | --- | --- |
 | 猜数字 | 蕾米想一个 1~100 的数，你猜，提示大了/小了 |
 | 石头剪刀布 | 和蕾米对战，计分定输赢 |
 | 打地鼠 | 30 秒内点击冒头的小蕾米（待机动画）得分，点空减分 |
+| 吃豆人 | 方向键控制蕾米在红色迷宫里吃豆，躲开幽灵吃完所有豆子通关 |
 
 ## AI 聊天
 
@@ -75,7 +86,7 @@ pet.py              桌宠主窗口（DesktopPet），入口文件
 constants.py        常量配置（GIF 列表、画画序列、性别称谓、AI 模板）
 ai.py               AI 后台请求线程（AIWorker）+ 消息历史裁剪
 chat.py             AI 聊天（短气泡 SpeechBubble + 聊天窗口 AIChatWindow）
-games.py            小游戏（猜数字 / 石头剪刀布 / 打地鼠）
+games.py            小游戏（猜数字 / 石头剪刀布 / 打地鼠 / 吃豆人）
 alarm.py            定时提醒（闹钟 + 倒计时）
 draw.py             画画结果弹窗
 test_logic.py       离线逻辑测试（mock Qt 跑通，无需显示器）
@@ -93,11 +104,16 @@ AI配置.json.example  AI 配置模板（无密钥，首次运行会复制成 AI
 ```bash
 pip install pyinstaller
 pyinstaller --onefile --windowed --name "小蕾米AI助理" --icon favicon.ico \
-  --add-data "gif;gif" --add-data "pics;pics" --add-data "favicon.ico;." pet.py
+  --add-data "gif;gif" --add-data "pics;pics" --add-data "favicon.ico;." \
+  --add-data "AI配置.json.example;." --add-data "作者.jpg;." pet.py
 ```
 
 单文件输出在 `dist/小蕾米AI助理.exe`。把 `AI配置.json.example` 复制成
 `AI配置.json` 放到 exe 同目录并填好 key 即可使用。
+
+> 依赖含 `pynput`（全局键盘监听打字动画），requirements.txt 已列出。
+> 打包后**开机自启**会写入 exe 的真实路径（PyInstaller 下用 `sys.argv[0]`，
+> 而非 `sys.executable`——后者在 onefile 模式下指向临时解压目录，会导致自启失效）。
 
 ## 改造为其他角色
 
