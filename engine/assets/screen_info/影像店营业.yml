@@ -1,0 +1,108 @@
+# 画面：影像店营业（录像店经营界面）
+# 坐标来自原 OneDragon 项目实测；按钮文案走 OCR
+screen_name: 影像店营业
+app_id: ''
+area_list:
+  - area_name: 经营状况
+    rect: [1272, 14, 1552, 84]
+    id_mark: true
+    ocr_text: 经营状况
+    lcs: 0.85
+  - area_name: 昨日账本
+    rect: [528, 224, 679, 273]
+    id_mark: false
+    ocr_text: 昨日账本
+    lcs: 0.85
+  - area_name: 按钮-关闭
+    rect: [1250, 100, 1500, 350]
+    id_mark: false
+    template: menu/btn_close
+    threshold: 0.7
+  - area_name: 返回
+    rect: [54, 12, 162, 84]
+    id_mark: false
+    template: menu/back
+    threshold: 0.7
+  - area_name: 宣传员入口
+    rect: [800, 620, 1000, 892]
+    id_mark: false
+  - area_name: 录像带入口
+    rect: [1106, 618, 1270, 896]
+    id_mark: false
+  - area_name: 录像带主题-1
+    rect: [784, 136, 912, 224]
+    id_mark: false
+  - area_name: 录像带主题-2
+    rect: [914, 136, 1030, 224]
+    id_mark: false
+  - area_name: 录像带主题-3
+    rect: [1030, 136, 1156, 224]
+    id_mark: false
+  - area_name: 宣传员-1
+    rect: [532, 144, 720, 422]
+    id_mark: false
+  - area_name: 确认
+    rect: [1590, 1004, 1816, 1054]
+    id_mark: false
+    ocr_text: 确认
+    lcs: 0.9
+  - area_name: 上架筛选
+    rect: [1588, 28, 1816, 78]
+    id_mark: false
+    ocr_text: 上架筛选
+    lcs: 0.85
+  - area_name: 主题筛选
+    rect: [1124, 104, 1824, 428]
+    id_mark: false
+  - area_name: 上架
+    rect: [1628, 1004, 1816, 1052]
+    id_mark: false
+    ocr_text: 上架
+    lcs: 0.85
+  - area_name: 下架
+    rect: [1628, 1004, 1816, 1052]
+    id_mark: false
+    ocr_text: 下架
+    lcs: 0.85
+  - area_name: 选择宣传员
+    rect: [104, 1006, 420, 1050]
+    id_mark: false
+    ocr_text: 选择宣传员
+    lcs: 0.85
+  - area_name: 换下
+    rect: [1628, 1004, 1816, 1052]
+    id_mark: false
+    ocr_text: 换下
+    lcs: 0.85
+  - area_name: 开始营业
+    rect: [1536, 950, 1792, 998]
+    id_mark: false
+    ocr_text: 开始营业
+    lcs: 0.85
+  - area_name: 开始营业-确认
+    rect: [1032, 600, 1232, 656]
+    id_mark: false
+    ocr_text: 确认
+    lcs: 0.9
+  - area_name: 营业后确认
+    rect: [800, 600, 1050, 656]
+    id_mark: false
+    ocr_text: 确认
+    lcs: 0.9
+  - area_name: 正在营业
+    rect: [1536, 950, 1792, 998]
+    id_mark: false
+    ocr_text: 正在营业
+    lcs: 0.85
+  - area_name: 推荐上架
+    rect: [1320, 1002, 1516, 1052]
+    id_mark: false
+    ocr_text: 推荐上架
+    lcs: 0.85
+  - area_name: 右侧选项区域
+    rect: [1438, 536, 1914, 830]
+    id_mark: false
+  - area_name: 对话框标题
+    rect: [880, 800, 1040, 840]
+    id_mark: false
+    # OCR 区域：对话中点击此区域可推进对话（对话状态下按 F 无效）

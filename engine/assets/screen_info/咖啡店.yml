@@ -1,0 +1,38 @@
+# 画面：咖啡店（澄辉坪-汀曼咖啡 对话点单流程）
+# 坐标来自原 OneDragon 项目实测；按钮文案走 OCR
+screen_name: 咖啡店
+app_id: ''
+area_list:
+  - area_name: 对话框标题-汀曼大师
+    rect: [880, 800, 1040, 840]
+    id_mark: true
+    ocr_text: 汀曼大师
+  - area_name: 右侧选项区域
+    rect: [1438, 536, 1914, 830]
+    id_mark: false
+    # OCR 区域：右侧对话选项（咖啡名）
+  - area_name: 对话框确认
+    rect: [1040, 600, 1228, 688]
+    id_mark: false
+    ocr_text: 确认
+    lcs: 0.9
+  - area_name: 对话框前往
+    rect: [728, 600, 928, 692]
+    id_mark: false
+    ocr_text: 前往
+    lcs: 0.9
+  - area_name: 点单后跳过
+    rect: [1684, 64, 1850, 200]
+    id_mark: false
+    ocr_text: 跳过
+    lcs: 0.9
+  - area_name: 电量确认
+    rect: [875, 640, 1200, 754]
+    id_mark: false
+    ocr_text: 确认
+    lcs: 0.9
+  - area_name: 不可贪杯确认
+    rect: [882, 606, 1084, 690]
+    id_mark: false
+    ocr_text: 确认
+    lcs: 0.9

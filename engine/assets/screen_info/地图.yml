@@ -1,0 +1,23 @@
+# 画面：地图（大世界地图传送界面）
+# 坐标来自原 OneDragon 项目实测
+screen_name: 地图
+app_id: ''
+area_list:
+  - area_name: 左上角返回
+    rect: [82, 13, 150, 90]
+    id_mark: true
+    template: menu/back
+    threshold: 0.7
+  - area_name: 主区域名称
+    rect: [0, 90, 1920, 930]
+    id_mark: false
+    # OCR 区域：地图上的区域名标签（点击选择区域）
+  - area_name: 传送点名称
+    rect: [70, 1000, 1848, 1058]
+    id_mark: false
+    # OCR 区域：底部传送点横条（点击选择传送点）
+  - area_name: 确认
+    rect: [1024, 600, 1232, 708]
+    id_mark: false
+    ocr_text: 确认
+    lcs: 0.9

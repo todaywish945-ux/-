@@ -1,0 +1,29 @@
+# 画面：快捷手册-日常（TAB 页）
+# 坐标来自原 OneDragon 项目实测；TAB-日常 为未激活（白色）状态的模板，从归档截图裁剪
+screen_name: 快捷手册-日常
+app_id: ''
+area_list:
+  - area_name: 今日最大活跃度
+    rect: [417, 250, 646, 320]
+    id_mark: true
+    template: 快捷手册/今日最大活跃度
+    threshold: 0.7
+  - area_name: TAB-日常
+    rect: [882, 140, 1088, 220]
+    id_mark: false
+    template: 快捷手册/TAB-日常
+    threshold: 0.7
+  - area_name: 活跃度奖励-确认
+    rect: [882, 704, 1086, 754]
+    id_mark: false
+    # 弹窗确认按钮：官方用 OCR 识别，这里按官方坐标纯坐标点击
+  - area_name: 活跃度奖励-4
+    rect: [1532, 250, 1602, 350]
+    id_mark: false
+    template: compendium/completed
+    threshold: 0.7
+  - area_name: 关闭按钮
+    rect: [1721, 229, 1799, 307]
+    id_mark: false
+    template: 快捷手册/关闭按钮
+    threshold: 0.7

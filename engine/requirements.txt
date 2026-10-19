@@ -1,0 +1,5 @@
+opencv-python>=4.10
+numpy>=1.26
+pywin32>=306
+PyYAML>=6.0
+rapidocr>=3.9

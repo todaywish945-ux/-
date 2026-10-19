@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+debug/
+.pytest_cache/
+config/
+runtime/
+*.log
+python_embed*.zip
+/绝区零配置.json

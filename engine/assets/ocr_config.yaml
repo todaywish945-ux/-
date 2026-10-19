@@ -1,0 +1,44 @@
+Cls:
+  class_name: TextClassifier
+  cls_batch_num: 6
+  cls_image_shape:
+  - 3
+  - 48
+  - 192
+  cls_thresh: 0.9
+  label_list:
+  - '0'
+  - '180'
+  model_path: models/ch_ppocr_mobile_v2.0_cls_infer.onnx
+  module_name: ch_ppocr_v2_cls
+  use_cuda: false
+Det:
+  box_thresh: 0.5
+  class_name: TextDetector
+  limit_side_len: 1920
+  limit_type: max
+  max_candidates: 1000
+  model_path: models/ch_PP-OCRv3_det_infer.onnx
+  module_name: ch_ppocr_v3_det
+  score_mode: fast
+  thresh: 0.3
+  unclip_ratio: 1.6
+  use_cuda: false
+  use_dilation: true
+Global:
+  min_height: 30
+  print_verbose: false
+  text_score: 0.5
+  use_angle_cls: false
+  use_text_det: true
+  width_height_ratio: 8
+Rec:
+  class_name: TextRecognizer
+  model_path: models/ch_PP-OCRv3_rec_infer.onnx
+  module_name: ch_ppocr_v3_rec
+  rec_batch_num: 6
+  rec_img_shape:
+  - 3
+  - 48
+  - 320
+  use_cuda: false

@@ -1,0 +1,9 @@
+# 画面：通用元素（跨画面存在的公共按钮）
+screen_name: 画面-通用
+app_id: ''
+area_list:
+  - area_name: 关闭
+    rect: [120, 80, 1800, 1000]
+    id_mark: false
+    template: menu/btn_close
+    threshold: 0.7

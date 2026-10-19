@@ -1,0 +1,29 @@
+# 画面：大世界（主界面）
+# 坐标来自原 OneDragon 项目实测；模板图：官方资产 + 归档截图自裁
+screen_name: 大世界
+app_id: ''
+area_list:
+  - area_name: 功能菜单
+    rect: [1776, 28, 1869, 117]
+    id_mark: true
+    template: normal_world/function_menu
+    threshold: 0.7
+  - area_name: 预配方案
+    rect: [1225, 44, 1505, 102]
+    id_mark: false  # 事件横幅/危局状态会改变此区域，不能当画面锚点（实测 0.600<0.7 误判不在大世界）
+    template: normal_world/preset_config
+    threshold: 0.7
+  - area_name: 快捷手册
+    rect: [1440, 29, 1679, 113]
+    id_mark: false
+    template: normal_world/compendium
+    threshold: 0.7
+    alt: true  # 大世界锁鼠标画面：点击需按住 ALT 解锁光标
+    goto: [快捷手册]
+  - area_name: 地图
+    rect: [1696, 319, 1858, 415]
+    id_mark: false
+    template: normal_world/map
+    threshold: 0.7
+    alt: true
+    goto: [地图]

@@ -1,0 +1,15 @@
+# 画面：打开游戏（登录/标题画面）
+# 坐标来自原 OneDragon 项目实测；模板：设置图标=官方资产，点击进入游戏=归档截图自裁
+screen_name: 打开游戏
+app_id: ''
+area_list:
+  - area_name: 设置图标
+    rect: [1787, 791, 1853, 857]
+    id_mark: true
+    template: enter_game/settings
+    threshold: 0.7
+  - area_name: 点击进入游戏
+    rect: [782, 846, 1136, 1032]
+    id_mark: false
+    template: enter_game/点击进入游戏
+    threshold: 0.7

@@ -1,0 +1,8 @@
+# 画面：吼吼饼铺（集卡机界面）
+# 坐标来自原 OneDragon 项目实测；流程状态判断走 OCR
+screen_name: 吼吼饼铺
+app_id: ''
+area_list:
+  - area_name: 盲盒
+    rect: [1100, 430, 1260, 570]
+    id_mark: false
