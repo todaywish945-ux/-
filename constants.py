@@ -31,4 +31,5 @@ AI_CONFIG_TEMPLATE = {
                       '回答尽量简短活泼，不超过 100 字，偶尔带点可爱的语气词，'
                       '默认使用简体中文。'),
     'max_history': 10,
+    'agent': True,
 }

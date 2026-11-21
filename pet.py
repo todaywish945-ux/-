@@ -122,6 +122,8 @@ class DesktopPet(QLabel):
         self.game_window = None
         self.alarm_window = None
         self.alarm_manager = AlarmManager(self)
+        self._zzz_window = None
+        self._start_zzz_foreground_keeper()
         self.movie = QMovie(self.gif_files[self.current_gif_index])
         self.movie.frameChanged.connect(self.update_frame)
         self.setMovie(self.movie)
@@ -421,6 +423,11 @@ class DesktopPet(QLabel):
         self.game_window = GameWindow(self)
         self.game_window.show()
 
+    def open_zzz_daily(self):
+        """打开/聚焦绝区零每日任务窗口（驱动一条龙引擎完成游戏内日常）"""
+        import zzz_daily
+        zzz_daily.open_daily_window(self)
+
     def open_alarm_window(self):
         """打开/聚焦定时提醒窗口"""
         if self.alarm_window is not None:
@@ -465,6 +472,48 @@ class DesktopPet(QLabel):
                 self.switch_to_gif(self.draw_sequence[self.draw_index])
             else:
                 self.switch_to_gif(0)
+
+    def _start_zzz_foreground_keeper(self):
+        """绝区零一条龙运行期间，周期性把游戏窗口拉到前台。
+        引擎的前台模拟点击必须落在游戏窗口上才生效，被其他窗口遮挡时会全部失效。
+        后台线程轮询引擎状态（本地HTTP，1.5秒一次），仅在引擎运行时动作。"""
+        try:
+            import threading
+
+            def keeper_loop():
+                import ctypes
+                import json as _json
+                import urllib.request
+                user32 = ctypes.windll.user32
+                cfg = os.path.join(self._data_dir, '绝区零配置.json')
+                try:
+                    with open(cfg, 'r', encoding='utf-8') as f:
+                        engine_dir = _json.load(f).get('engine_dir')
+                except Exception:
+                    return
+                if not engine_dir:
+                    return
+                while True:
+                    try:
+                        with urllib.request.urlopen(
+                                'http://127.0.0.1:23001/game/status',
+                                timeout=1) as resp:
+                            running = _json.loads(
+                                resp.read().decode('utf-8')).get('state') == 'running'
+                        if running:
+                            hwnd = user32.FindWindowW(None, '绝区零')
+                            if hwnd:
+                                user32.ShowWindow(hwnd, 9)
+                                user32.keybd_event(0x12, 0, 0, 0)
+                                user32.SetForegroundWindow(hwnd)
+                                user32.keybd_event(0x12, 0, 2, 0)
+                    except Exception:
+                        pass
+                    time.sleep(1.5)
+
+            threading.Thread(target=keeper_loop, daemon=True).start()
+        except Exception:
+            pass
 
     def _start_keyboard_listener(self):
         """启动全局键盘监听线程（记录按键时间戳）"""
@@ -584,6 +633,10 @@ class DesktopPet(QLabel):
         game_action.triggered.connect(self.open_game)
         menu.addAction(game_action)
         menu.addSeparator()
+        zzz_action = QAction('🎮 绝区零每日任务', self)
+        zzz_action.triggered.connect(self.open_zzz_daily)
+        menu.addAction(zzz_action)
+        menu.addSeparator()
         alarm_action = QAction('⏰ 定时提醒', self)
         alarm_action.triggered.connect(self.open_alarm_window)
         menu.addAction(alarm_action)
@@ -664,6 +717,9 @@ class DesktopPet(QLabel):
             self.game_window.close()
         if self.alarm_window is not None:
             self.alarm_window.close()
+        zzz_win = getattr(self, '_zzz_window', None)
+        if zzz_win is not None:
+            zzz_win.close()
         self.save_settings()
         QApplication.quit()
 

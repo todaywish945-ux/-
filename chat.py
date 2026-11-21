@@ -8,6 +8,7 @@ from PyQt6.QtWidgets import (QWidget, QLabel, QGraphicsOpacityEffect, QScrollAre
                              QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout,
                              QFileDialog, QMessageBox)
 from ai import trim_history, AIWorker
+from agent import AgentWorker
 
 
 class SpeechBubble(QWidget):
@@ -116,6 +117,11 @@ class AIChatWindow(QWidget):
         self._scroll.setWidget(self._messages_host)
         layout.addWidget(self._scroll, 1)
 
+        self._status_label = QLabel('', self)
+        self._status_label.setStyleSheet('color: #ff3d8b; border: none; font-size: 12px;')
+        self._status_label.hide()
+        layout.addWidget(self._status_label)
+
         input_row = QWidget(self)
         input_layout = QHBoxLayout(input_row)
         input_layout.setContentsMargins(0, 0, 0, 0)
@@ -203,18 +209,29 @@ class AIChatWindow(QWidget):
         self._busy = True
         self._send_btn.setEnabled(False)
         self._input.setEnabled(False)
-        self._worker = AIWorker(self._config.get('base_url', ''),
-                                self._config.get('api_key', ''),
-                                model,
-                                list(self._history), self)
+        # Agent 模式：普通文本走工具循环（能操作引擎/设提醒/做表情）；
+        # 图片题目走纯视觉问答；配置里 agent=false 可关掉 agent
+        if self._pending_image is None and bool(self._config.get('agent', True)):
+            self._worker = AgentWorker(self._config, list(self._history), self._pet)
+            self._worker.activity.connect(self._on_activity)
+        else:
+            self._worker = AIWorker(self._config.get('base_url', ''),
+                                    self._config.get('api_key', ''),
+                                    model,
+                                    list(self._history), self)
         self._worker.finished.connect(self._on_reply)
         self._pet.set_thinking(True)
         self._worker.start()
+
+    def _on_activity(self, text):
+        self._status_label.setText('⚙ ' + text)
+        self._status_label.show()
 
     def _on_reply(self, text, error):
         self._busy = False
         self._send_btn.setEnabled(True)
         self._input.setEnabled(True)
+        self._status_label.hide()
         self._pet.set_thinking(False)
         if error:
             self._add_message('assistant', '[出错了] ' + error)

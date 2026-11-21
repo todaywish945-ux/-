@@ -224,6 +224,15 @@ class QThread(_QObject):
 def pyqtSignal(*types):
     return Signal()
 
+def pyqtSlot(*a, **k):
+    def deco(fn): return fn
+    return deco
+
+class QMetaObject:
+    @staticmethod
+    def invokeMethod(obj, name, *a):
+        pass  # mock 的 QThread.start() 已直接调用 run，这里无需再触发
+
 class QMovie(_QObject):
     def __init__(self, path):
         self.path = path
@@ -334,6 +343,7 @@ class _QtConsts:
     MouseButton = _Enum(LeftButton=1, RightButton=2)
     TextInteractionFlag = _Enum(TextSelectableByMouse=1)
     AlignmentFlag = _Enum(AlignCenter=4)
+    ConnectionType = _Enum(QueuedConnection=1, DirectConnection=2)
 
 class _Qt:
     def __getattr__(self, name):
@@ -363,6 +373,8 @@ setattr(qc, 'QSize', QSize)
 setattr(qc, 'QThread', QThread)
 setattr(qc, 'QObject', _QObject)
 setattr(qc, 'pyqtSignal', pyqtSignal)
+setattr(qc, 'pyqtSlot', pyqtSlot)
+setattr(qc, 'QMetaObject', QMetaObject)
 
 qg = _build_pkg('PyQt6.QtGui')
 setattr(qg, 'QPixmap', QPixmap)

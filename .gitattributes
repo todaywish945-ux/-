@@ -1,0 +1,7 @@
+# 换行符规范：脚本必须 LF，Windows 批处理必须 CRLF
+*.sh text eol=lf
+*.py text eol=lf
+*.bat text eol=crlf
+*.json text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
